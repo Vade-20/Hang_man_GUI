@@ -4,7 +4,6 @@ from random import choice
 import json
 from hangman_visual import visuals
 from tkinter import messagebox
-import ctypes
 
 dictionary = PyDictionary()
 with open('words.json', 'r',encoding='utf-8') as f:
@@ -13,7 +12,6 @@ with open('words.json', 'r',encoding='utf-8') as f:
 root = Tk()
 root.config(bg='black')
 root.title("Hang-Man")
-root.iconbitmap(r'hangman (1).ico')
 chances = 7
 rand = None
 l3 = None
