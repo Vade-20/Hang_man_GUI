@@ -4,6 +4,7 @@ from random import choice
 import json
 from hangman_visual import visuals
 from tkinter import messagebox
+import ctypes
 
 dictionary = PyDictionary()
 with open('words.json', 'r',encoding='utf-8') as f:
@@ -11,6 +12,8 @@ with open('words.json', 'r',encoding='utf-8') as f:
 
 root = Tk()
 root.config(bg='black')
+root.title("Hang-Man")
+root.iconbitmap(r'hangman (1).ico')
 chances = 7
 rand = None
 l3 = None
@@ -35,9 +38,14 @@ def right_word(n=None):
     global rand, l3
     rand = choice(list(data)).lower()
     meaning = dictionary.meaning(rand, disable_errors=True)
-    while meaning is None:
+    c=0
+    while  meaning is None:
+        if c==5:
+            meaning = {"Internet connection unavailable":["Please establish an internet connection to retrieve the meaning of the word."]}
+            break
         rand = choice(list(data)).lower()
         meaning = dictionary.meaning(rand, disable_errors=True)
+        c+=1
     ans = '__  ' * len(rand)
     l3 = Label(root, fg='red', bg='black', font=('Times', '20'), justify='center', text=ans, border=3, relief='raised')
     l3.grid(row=5, column=0, columnspan=6, sticky=W+E)
